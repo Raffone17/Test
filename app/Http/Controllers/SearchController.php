@@ -33,10 +33,7 @@ class SearchController extends Controller
             $recipes->appends(['search' => $request->search])->links();
             
             $statusinfo = 'Recetta della categoria: "'.$request->search.'"';
-            
-            /*$var1 = 'category_id';
-            $var2 = '=';
-            $var3 = $category->id;*/
+
         
         }else if($user != null){
             
@@ -46,9 +43,7 @@ class SearchController extends Controller
             
             $statusinfo = 'Recetta dell\'utente : "'.$request->search.'"';
             
-            /*$var1 = 'user_id';
-            $var2 = '=';
-            $var3 = $user->id;*/
+       
         }
         else{
             
@@ -58,17 +53,10 @@ class SearchController extends Controller
             
             $statusinfo = 'Ricerca ricette per nome: "'.$request->search.'"';
             
-            /*$var1 = 'title';
-            $var2 = 'like';
-            $var3 = '%'.$request->search.'%';*/
+      
         }
         
-        /*$recipes = DB::table('recipes')->join('ingredient_to_recipes','recipes.id','=','ingredient_to_recipes.recipe_id')
-        ->join('categories', 'recipes.category_id', '=', 'categories.id')->join('users','recipes.user_id','=','users.id')
-        ->where($var1,$var2,$var3)
-        ->select('recipes.id','recipes.title','recipes.description','categories.name','recipes.difficult','recipes.created_at',
-        DB::raw('users.name as user'),
-        DB::raw('COUNT(ingredient_to_recipes.id) as ingredients'))->groupBy('recipes.title')->paginate(6);*/
+        
         
         $recipes->appends(['search' => $request->search])->links();
         
@@ -85,11 +73,7 @@ class SearchController extends Controller
              ]);
              
     
-       /*$recipes = DB::table('recipes')->join('ingredient_to_recipes','recipes.id','=','ingredient_to_recipes.recipe_id')
-        ->join('categories', 'recipes.category_id', '=', 'categories.id')->join('users','recipes.user_id','=','users.id')
-        ->join('ingredients', 'ingredient_to_recipes.ingredient_id', '=', 'ingredients.id')->where('ingredients.name', 'like', '%'.$request->ingredient.'%')
-        ->select('recipes.id','recipes.title','recipes.description','categories.name','recipes.difficult','recipes.created_at',
-        DB::raw('users.name as user'))->groupBy('recipes.title')->paginate(6);*/
+       
         
         $recipes = Recipe::whereHas('ingredient_to_recipes', function ($query) use ($request) {
               

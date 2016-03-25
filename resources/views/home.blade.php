@@ -34,7 +34,7 @@
          </div>
      @foreach ($recipes as $recipe)
                             
-        @if ( App\Category::findOrFail($recipe->category_id)->name == $category->name )                  
+        @if ( $recipe->category->name == $category->name )                  
                            
         
                            <div class="col-sm-4">
@@ -45,19 +45,19 @@
                                 <img src="{{asset('assets/img/recipe/default.png')}}" alt="recipe image" class="img-responsive fix-height-150" />
                                 @endif
                                 <h4 class="media-heading"> {{ $recipe->title }}</h4>
-                                <p class="text-right">Autore: {{ $user = App\User::findOrFail($recipe->user_id)->name }}</p>
+                                <p class="text-right">Autore: {{ $recipe->user->name }} </p>
                                <div class="description-box">
                                 
                                     {{ str_limit( $recipe->description, 320, $end= '...' ) }}
                                
                                </div>  
                    <hr>             
-                <ul class="list-inline list-unstyled font-14">
+                <ul class="list-inline list-unstyled font-1">
                     
               <!--  $recipe->created_at->format('d-m-Y')  -->
   			<li><span><i class="glyphicon glyphicon-calendar"></i>{{ date('d-m-Y',strtotime($recipe->created_at)) }}</span></li>
             <li>|</li>
-            <span><i class=" glyphicon glyphicon-sort-by-attributes"></i>{{App\Ingredient_to_recipe::where('recipe_id',$recipe->id)->count()}}ingredienti</span>
+            <span><i class=" glyphicon glyphicon-sort-by-attributes"></i>{{ $recipe->ingredient_to_recipes->count() }}ingredienti</span>
             <li>|</li>
             <li>
                 <span class="glyphicon glyphicon-tasks"></span>

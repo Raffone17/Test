@@ -29,12 +29,7 @@ class RecipeController extends Controller
        
        
             
-        /*$recipes = DB::table('recipes')->join('ingredient_to_recipes','recipes.id','=','ingredient_to_recipes.recipe_id')
-        ->join('categories', 'recipes.category_id', '=', 'categories.id')->join('users','recipes.user_id','=','users.id')
-        ->select('recipes.id','recipes.title','recipes.description','categories.name','recipes.difficult','recipes.created_at',
-        DB::raw('users.name as user'),
-        DB::raw('COUNT(ingredient_to_recipes.id) as ingredients'))->groupBy('recipes.title')->paginate(6);*/
-       
+      
         
         return view('recipe.index' ,['recipes' => $recipes]);
     }

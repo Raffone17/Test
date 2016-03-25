@@ -55,11 +55,9 @@
   			<li><span><i class="glyphicon glyphicon-calendar"></i>{{ date('d-m-Y',strtotime($recipe->created_at)) }}</span></li>
             <li>|</li>
             <span><i class=" glyphicon glyphicon-sort-by-attributes"></i>
-            @if (isset( $recipe->ingredients ))
-            {{ $recipe->ingredients }}ingredienti</span>
-            @else
+            
             {{ $recipe->ingredient_to_recipes->count() }}ingredienti</span>
-            @endif
+            
             <li>|</li>
             <li>
                 <span class="glyphicon glyphicon-tasks"></span>
