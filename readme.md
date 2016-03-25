@@ -27,11 +27,11 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
 ## How to Install
+
 - Install Composer.
-- Clone the project with $ git clone 
+- Clone the project with $ git clone
 - Copy and than modify .env.example in .env and configure it with your database access configuration
-- The follow this commands:
-- 
+- Then follow this commands:
 ```sh
   $ composer install
   $ composer update
@@ -45,9 +45,11 @@ email: admin@email.com
 
 pass: admnistrator  
 
--For other example users :
+-Login with other example users :
 
-email: "name"@email.com 
+email: "name"@email.com
 
-pass: pass"name" 
+pass: pass"name"
 
+-Administrator instructions
+After login with administrator user, in the settings page it is possible to change the application name, or the used theme between three different choices.
