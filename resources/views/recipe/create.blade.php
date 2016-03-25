@@ -1,4 +1,17 @@
-@extends(Auth::user()->isAdmin() ? 'layouts/admin' : 'layouts/app')
+<?php 
+if(strpos(URL::previous(), 'admin')!=false && Auth::check()){
+	
+	if(Auth::user()->isAdmin() ){
+		$var = true;
+	}else{
+		$var = false;
+	}
+}else{
+	$var = false;
+}
+?>
+
+@extends($var ? 'layouts/admin' : 'layouts/app')
 
 @section('content')
     

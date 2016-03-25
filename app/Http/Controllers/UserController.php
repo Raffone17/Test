@@ -125,8 +125,11 @@ class UserController extends Controller
             }
             
             $user->save();
-           
-            return redirect()->route('user.show',[$id])->with('status', "Utente modificato con successo!");
+            if( Auth::user()->isAdmin() ){
+                return redirect()->route('admin.user')->with('status', "Utente modificato con successo!");
+            }else{
+                return redirect()->route('user.show',[$id])->with('status', "Utente modificato con successo!");
+            }
             
         }else{
             return redirect()->route('user.show',[$id])->with('status-warning', "Utente non trovato oppure non hai i permessi!");

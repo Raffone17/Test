@@ -1,4 +1,16 @@
-@extends(Auth::user()->isAdmin() ? 'layouts/admin' : 'layouts/app')
+<?php 
+if(strpos(URL::previous(), 'admin')!=false && Auth::check()){
+	
+	if(Auth::user()->isAdmin() ){
+		$var = true;
+	}else{
+		$var = false;
+	}
+}else{
+	$var = false;
+}
+?>
+@extends($var ? 'layouts/admin' : 'layouts/app') 
 
 @section('content')
 <div class="container">
@@ -25,7 +37,7 @@
         			 @if (Auth::user()->isAdmin())
         			 <div class="col-sm-12">
            			 	 <label class="control-label font-15-b" for="title">Tipo utente:</label>
-           			     <select id="role" name="role" class="form-control">
+           			     <select  id="role" name="role" class="form-control">
            			         <option value="1" 
            			         @if( $user->role == 1)
            			         selected

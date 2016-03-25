@@ -23,5 +23,8 @@
         			     <br>
         			     {!! Form::submit('Modifica', ['id'=>'modify_category','class' => 'btn btn-primary  ']) !!}
         			 </div>
+			</div>
+		</div>
+	</div>
 </div>
 @endsection

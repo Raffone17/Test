@@ -1,10 +1,14 @@
 <?php 
-    if(Auth::check()){
-       if(Auth::user()->isAdmin() ){
-           $var = true;
-       } 
-    }
-    $var = false;
+if(strpos(URL::previous(),  'admin')!=false && Auth::check()){
+	
+	if(Auth::user()->isAdmin() ){
+		$var = true;
+	}else{
+		$var = false;
+	}
+}else{
+	$var = false;
+}
 ?>
 @extends($var ? 'layouts/admin' : 'layouts/app') 
 

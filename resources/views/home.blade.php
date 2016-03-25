@@ -9,7 +9,7 @@
                 
                  <div class="row" >
                     <h1 class="text-center">Benvenuto {{ Auth::user()->name }}!</h1>
-                    <h4 class="text-center"> A RecipeWorld puoi iscriverti ed aggiungere le tue ricette preferite e meglio riuscite, e diventare anche tu un famoso chef!
+                    <h4 class="text-center"> A {{ $site_name=App\Setting::first()->site_name }} puoi iscriverti ed aggiungere le tue ricette preferite e meglio riuscite, e diventare anche tu un famoso chef!
                     Iscriversi &egrave; semplice, basta cliccare <a type="button" class="btn btn-success" href="{{ url('/register') }}"> qui </a>!<br>
                     Qui di seguito vedrai un paio di esempi di ricette dei nostri utenti...</h4>
                 </div>
@@ -18,7 +18,7 @@
              @else
                 <div class="row" >
                     <h1 class="text-center">Benvenuti nel miglior sito di ricette di sempre!</h1>
-                    <h4 class="text-center"> A RecipeWorld puoi iscriverti ed aggiungere le tue ricette preferite e meglio riuscite, e diventare anche tu un famoso chef!
+                    <h4 class="text-center"> A {{ $site_name=App\Setting::first()->site_name }} puoi iscriverti ed aggiungere le tue ricette preferite e meglio riuscite, e diventare anche tu un famoso chef!
                     Iscriversi &egrave; semplice, basta cliccare <a type="button" class="btn btn-success" href="{{ url('/register') }}"> qui </a>!<br>
                     Qui di seguito vedrai un paio di esempi di ricette dei nostri utenti...</h4>
                 </div>

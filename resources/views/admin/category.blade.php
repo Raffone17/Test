@@ -30,9 +30,23 @@
           </tbody>
       </table>
         {!! $categories->render() !!}
-        <div class="row" >
-            
-        </div>
+        	<div class="row">
+        	    <div class="col-sm-12">
+				<h3>Aggiungi una Categoria</h3>
+				</div>
+				{!! Form::open(['method'=>'POST','id'=>'category_create_form', 'name'=>'create_category','route' => array('category.store'),'enctype' => 'multipart/form-data']) !!}
+       			 <div class="form-group col-sm-4">
+       			     <div class="col-sm-12">
+           			 	 <label class="control-label font-15-b" for="title">Nome: </label>
+            			 <input type="text" class="form-control"  name="name"  placeholder="Name" required><br>
+        			 </div>
+        			
+        			 <div class="col-sm-4">
+        			     <br>
+        			     {!! Form::submit('Aggiungi', ['id'=>'modify_category','class' => 'btn btn-primary  ']) !!}
+        			 </div>
+			</div>
+		</div>
     </div>
   
     

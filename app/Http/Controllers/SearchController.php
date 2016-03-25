@@ -11,11 +11,20 @@ use App\Recipe;
 use App\Category;
 use App\Ingredient_to_recipe;
 use App\Ingredient;
+use App\Setting;
 
 use DB;
 
 class SearchController extends Controller
 {
+    protected $paginate;
+    
+    public function __construct()
+    {
+        $this->paginate = Setting::first()->paginate_recipe;
+
+    } 
+    
     public function searchTitle(Request $request)
     {   
    
@@ -28,7 +37,7 @@ class SearchController extends Controller
         
         if($category != null){
             
-            $recipes = Recipe::where('category_id',$category->id)->paginate(6);
+            $recipes = Recipe::where('category_id',$category->id)->paginate($this->paginate);
            
             $recipes->appends(['search' => $request->search])->links();
             
@@ -37,7 +46,7 @@ class SearchController extends Controller
         
         }else if($user != null){
             
-            $recipes = Recipe::where('user_id',$user->id)->paginate(6);
+            $recipes = Recipe::where('user_id',$user->id)->paginate($this->paginate);
             
             $recipes->appends(['search' => $request->search])->links();
             
@@ -47,7 +56,7 @@ class SearchController extends Controller
         }
         else{
             
-            $recipes = Recipe::where('title', 'like', '%'.$request->search.'%')->paginate(6);
+            $recipes = Recipe::where('title', 'like', '%'.$request->search.'%')->paginate($this->paginate);
             
             $recipes->appends(['search' => $request->search])->links();
             
@@ -81,7 +90,7 @@ class SearchController extends Controller
                     
                     $query->where('name', 'like', '%'.$request->ingredient.'%');
                 });
-            })->paginate(6);
+            })->paginate($this->paginate);
 
         $recipes->appends(['ingredient' => $request->ingredient])->links();
         

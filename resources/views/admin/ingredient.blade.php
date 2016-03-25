@@ -30,9 +30,22 @@
           </tbody>
       </table>
         {!! $ingredients->render() !!}
-        <div class="row" >
-            
-        </div>
+        <div class="row">
+        	    <div class="col-sm-12">
+				<h3>Aggiungi un Ingrediente</h3>
+				</div>
+				{!! Form::open(['method'=>'POST','id'=>'ingredient_create_form', 'name'=>'create_ingredient','route' => array('ingredient.store'),'enctype' => 'multipart/form-data']) !!}
+       			 <div class="form-group col-sm-4">
+       			     <div class="col-sm-12">
+           			 	 <label class="control-label font-15-b" for="title">Nome: </label>
+            			 <input type="text" class="form-control"  name="name"  placeholder="Name" required><br>
+        			 </div>
+        			
+        			 <div class="col-sm-4">
+        			     <br>
+        			     {!! Form::submit('Aggiungi', ['id'=>'add_ingredient','class' => 'btn btn-primary  ']) !!}
+        			 </div>
+			</div>
     </div>
   
     

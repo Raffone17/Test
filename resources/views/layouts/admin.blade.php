@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin - Recipe World</title>
+    <title>Admin - {{ $site_name=App\Setting::first()->site_name }}</title>
 
     <!-- Bootstrap Core CSS -->
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ route('admin.index') }}">Admin Recipe World</a>
+                <a class="navbar-brand" href="{{ route('admin.index') }}">Admin {{ $site_name }}</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -141,7 +141,7 @@
                             <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                            <a href="{{ route('admin.setting') }}"><i class="fa fa-fw fa-gear"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -168,12 +168,15 @@
                     <li {{{ (Request::is('admin/category') ? 'class=active' : '') }}} >
                         <a href="{{ route('admin.category') }}"><i class="fa fa-fw fa-tags"></i> Categorie</a>
                     </li>
-                    <li {{{ (Request::is('admin/settings') ? 'class=active' : '') }}} >
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Impostazioni</a>
+                    <li {{{ (Request::is('admin/setting') ? 'class=active' : '') }}} >
+                        <a href="{{ route('admin.setting') }}"><i class="fa fa-fw fa-wrench"></i> Impostazioni</a>
                     </li>
                     
                     <li {{{ (Request::is('recipe/create') ? 'class=active' : '') }}} >
                         <a href="{{ route('recipe.create') }}"><i class="fa fa-fw fa-file"></i> Crea Ricetta</a>
+                    </li>
+                    <li {{{ (Request::is('/') ? 'class=active' : '') }}} >
+                        <a href="{{ url('/home') }}"><i class="fa fa-fw fa-laptop "></i> Vedi il sito</a>
                     </li>
                 </ul>
             </div>

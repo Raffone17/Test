@@ -11,9 +11,17 @@ use App\Recipe;
 use App\Ingredient;
 use App\Category;
 use App\Ingredient_to_recipe;
+use App\Setting;
 
 class AdminController extends Controller
 {
+    protected $paginate;
+    
+    public function __construct()
+    {
+        $this->paginate = Setting::first()->paginate_admin;
+        
+    }
     
     public function index()
     {
@@ -34,7 +42,7 @@ class AdminController extends Controller
     
     public function recipe()
     {
-        $recipes= Recipe::paginate(25);
+        $recipes= Recipe::paginate($this->paginate);
         
         
         return view('admin.recipe' ,['recipes' => $recipes]);
@@ -42,9 +50,28 @@ class AdminController extends Controller
     
     public function ingredient()
     {
-        $ingredients = Ingredient::paginate(25);
+        $ingredients = Ingredient::paginate($this->paginate);
         
         return view('admin.ingredient' ,['ingredients' => $ingredients]);
+    }
+    public function ingredientStore(Request $request)
+    {
+       $this->validate($request, [
+        'name' => 'required | min:3',
+
+        ]);
+        if( Ingredient::where("name",$request->name)->count() == 0 ){
+            $ingredient= new Ingredient;
+            $ingredient->name = $request->name;
+            $ingredient->save();
+            
+            return redirect()->route('admin.ingredient')->with('status', "Ingrediente aggiunto con successo!");
+            
+        }else{
+            
+            return redirect()->back()->with('status-warning', "Ingrediente già presente!");
+        }
+    
     }
     
     public function ingredientEdit($id)
@@ -100,14 +127,14 @@ class AdminController extends Controller
     
     public function user()
     {
-        $users = User::paginate(25);
+        $users = User::paginate($this->paginate);
         
         return view('admin.user' ,['users' => $users]);
     }
     
     public function category()
     {
-        $categories = Category::paginate(25);
+        $categories = Category::paginate($this->paginate);
         
         return view('admin.category' ,['categories' => $categories]);
         
@@ -147,7 +174,7 @@ class AdminController extends Controller
     }
     public function categoryDestroy($id)
     {
-        $category = Ingredient::find($id);
+        $category = Category::find($id);
         if($category != null){
             $used = Recipe::where('category_id',$id)->count() ;
             
@@ -168,10 +195,10 @@ class AdminController extends Controller
         'name' => 'required | min:3',
 
         ]);
-        if( Cateogry::where("name",$request->name) != null ){
-            $cateogry = new Category;
+        if( Category::where("name",$request->name)->count() == 0 ){
+            $category = new Category;
             $category->name = $request->name;
-            $cateogry->save();
+            $category->save();
             
             return redirect()->route('admin.category')->with('status', "Categoria aggiunta con successo!");
             
@@ -180,5 +207,32 @@ class AdminController extends Controller
             return redirect()->back()->with('status-warning', "Categoria già presente!");
         }
     
+    }
+    
+    public function setting()
+    {
+        $setting= Setting::first();
+        
+        return view('admin.setting' ,['setting' => $setting]);
+        
+    }
+    public function settingUpdate(Request $request)
+    {
+        
+         $this->validate($request, [
+            'site_name' => 'required | min:3',
+            'paginate_recipe' => 'required | integer | between:3,30',
+            'paginate_admin' => 'required | integer | between:5,50',
+            'theme' => 'required | integer | between:1,3',
+            ]);
+            
+        $setting = Setting::first();
+        $setting->site_name = $request->site_name;
+        $setting->paginate_recipe = $request->paginate_recipe;
+        $setting->paginate_admin = $request->paginate_admin;
+        $setting->theme = $request->theme;
+        $setting->save();
+        
+        return redirect()->back()->with('status', "Impostazioni modificate con successo!");
     }
 }

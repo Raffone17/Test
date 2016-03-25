@@ -11,6 +11,7 @@ use App\Recipe;
 use App\Category;
 use App\Ingredient_to_recipe;
 use App\Ingredient;
+use App\Setting;
 
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -22,9 +23,18 @@ class RecipeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $paginate;
+    
+    public function __construct()
+    {
+        $this->paginate = Setting::first()->paginate_recipe;
+
+    } 
+    
+     
     public function index()
     {
-        $recipes = Recipe::paginate(6);
+        $recipes = Recipe::paginate($this->paginate);
       
        
        
@@ -122,11 +132,11 @@ class RecipeController extends Controller
      
         if(Auth::user()->isAdmin()){
             
-            return redirect()->route('admin.index')->with('status', 'Riccetta Aggiunta!'.$error_image);
+            return redirect()->route('recipe.show',[$recipe_id])->with('status', 'Riccetta Aggiunta!'.$error_image);
             
         }else{
             
-    	    return redirect()->route('recipe.index')->with('status', 'Riccetta Aggiunta!'.$error_image);
+    	    return redirect()->route('recipe.show',[$recipe_id])->with('status', 'Riccetta Aggiunta!'.$error_image);
     	
         }
     }
@@ -274,8 +284,11 @@ class RecipeController extends Controller
             if(!isset($error_image)){
                 $error_image="";
             }
-            
-        	return redirect()->route('recipe.show',[$id])->with('status', 'Riccetta Modificata con successo!'.$error_image);
+            if( Auth::user()->isAdmin() ){
+                return redirect()->route('admin.recipe')->with('status', 'Riccetta Modificata con successo!'.$error_image);
+            }else{
+        	    return redirect()->route('recipe.show',[$id])->with('status', 'Riccetta Modificata con successo!'.$error_image);
+            }
         }else{
             return redirect()->route('recipe.index')->with('status-warning', 'Non hai i permessi per modificare questa ricetta!');
         }

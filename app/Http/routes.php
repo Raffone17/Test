@@ -63,10 +63,12 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('/admin/user',['as'=>'admin.user','uses'=>'AdminController@user']);
             Route::get('/admin/category' ,['as'=>'admin.category','uses'=>'AdminController@category']);
             
+            
             //---- Rotte per modifiche su ingredienti----
             Route::get('/admin/ingredient/{id}/edit',['as'=>'ingredient.edit','uses'=>'AdminController@ingredientEdit']);
             Route::put('/admin/ingredient/{id}',['as'=>'ingredient.update','uses'=>'AdminController@ingredientUpdate']);
             Route::delete('/admin/ingredient/{id}',['as'=>'ingredient.destroy','uses'=>'AdminController@ingredientDestroy']);
+            Route::post('/admin/ingredient', ['as'=>'ingredient.store' , 'uses'=>'AdminController@ingredientStore']);
             
             //---- Rotte per modifiche sulle categorie ----
             Route::post('admin/cateogry' ,['as'=>'category.store','uses'=>'AdminController@categoryStore']);
@@ -74,6 +76,9 @@ Route::group(['middleware' => 'web'], function () {
             Route::put('admin/category/{id}' ,['as'=>'category.update','uses'=>'AdminController@categoryUpdate']);
             Route::delete('admin/category/{id}' ,['as'=>'category.destroy','uses'=>'AdminController@categoryDestroy']);
             
+            //---- Rotte per modificare le impostazioni -----
+            Route::get('/admin/setting' ,['as'=>'admin.setting','uses'=>'AdminController@setting']);
+            Route::put('/admin/setting' ,['as'=>'setting.update' ,'uses'=>'AdminController@settingUpdate']);
             
         });
         //***** Fine middleware admin *****
