@@ -80,6 +80,9 @@
 
                             <ul class="dropdown-menu" role="menu">
                                  <li><a href="{{ route('user.show',['id' => Auth::id()]) }}"><i class="glyphicon glyphicon-user"></i> Dettagli utente</a></li>
+                                 @if (Auth::user()->isAdmin())
+                                 <li><a href="{{ route('admin.index') }}"><i class="glyphicon glyphicon-wrench"></i> Amministrazione </a></li>
+                                 @endif
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                                
                             </ul>

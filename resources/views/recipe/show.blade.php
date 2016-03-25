@@ -1,4 +1,15 @@
-@extends('layouts.app')
+<?php 
+    if(Auth::check()){
+       if(Auth::user()->isAdmin() ){
+           $var = true;
+       } 
+    }
+    $var = false;
+?>
+@extends($var ? 'layouts/admin' : 'layouts/app') 
+
+
+
 
 @section('content')
     
@@ -16,7 +27,7 @@
                                 <img src="{{asset('assets/img/recipe/default.png')}}" alt="recipe image" class="img-responsive img-thumbnail" />
                                 @endif
                                 <h4 class="media-heading"> {{ $recipe->title }}</h4>
-                                <p class="text-right">Autore: {{ App\User::findOrFail($recipe->user_id)->name }}</p>
+                                <p class="text-right">Autore: {{ $recipe->user->name }}</p>
                                 <div class="ingredients-box">
                                <h4 class="media-heading">Ingredienti: </h4>
                                
@@ -29,7 +40,7 @@
                                
                                 </div>
                                 <div class="col-sm-12">
-                                    <h4>Categoria:  {{ App\Category::findOrFail($recipe->category_id)->name }} </h4>
+                                    <h4>Categoria:  {{ $recipe->category->name }} </h4>
                                     
                                 </div>
                                <div class="description-box2">
@@ -52,7 +63,7 @@
                         
             </li>
             <li>|</li>
-            @if (Auth::check() && Auth::id()==$recipe->user_id)
+            @if ((Auth::check() && Auth::id()==$recipe->user_id) || (Auth::check() && Auth::user()->isAdmin() ) )
             <li>	<a class="btn btn-warning pull" href="{{ route('recipe.edit', ['id' => $recipe->id]) }}">Modifica</a></li>
             <li>|</li>
             <li>{{ Form::open(['route' => ['recipe.destroy', $recipe->id], 'method' => 'delete', 'id' => 'delete-form']) }}

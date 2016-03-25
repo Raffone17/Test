@@ -7,21 +7,21 @@
             <tr>
               <th>#</th>
               <th>Nome</th>
-              <th>Utilizzi</th>
               <th>Data</th>
+              <th>Numero ricette</th>
               <th>Modifica</th>
               <th>Elimina</th>
             </tr>
           </thead>
           <tbody>
-               @foreach ($ingredients as $ingredient)
+               @foreach ($categories as $category)
                 <tr>
-                  <th scope="row">{{ $ingredient->id }}</th>
-                  <td>{{ $ingredient->name }}</td>
-                  <td>{{ App\Ingredient_to_recipe::where('ingredient_id',$ingredient->id)->count() }}</td>
-                  <td>{{ date('d-m-Y',strtotime($ingredient->created_at)) }}</td>
-                  <td><a class="btn btn-warning pull" href="{{ route('ingredient.edit', ['id' => $ingredient->id]) }}">Modifica</a></td>
-                  <td>{{ Form::open(['route' => ['ingredient.destroy', $ingredient->id], 'method' => 'delete', 'class' => 'delete-ingredient']) }}
+                  <th scope="row">{{ $category->id }}</th>
+                  <td>{{ $category->name }}</td>
+                  <td>{{ date('d-m-Y',strtotime($category->created_at)) }}</td>
+                  <td>{{ App\Recipe::where('category_id',$category->id)->count() }}</td>
+                  <td><a class="btn btn-warning pull" href="{{ route('category.edit', ['id' => $category->id]) }}">Modifica</a></td>
+                  <td>{{ Form::open(['route' => ['category.destroy', $category->id], 'method' => 'delete', 'class' => 'delete-category']) }}
                      <button class="btn btn-danger pull" type="submit">Elimina</button>
                       {{ Form::close() }}
                   </td>
@@ -29,7 +29,7 @@
                @endforeach
           </tbody>
       </table>
-        {!! $ingredients->render() !!}
+        {!! $categories->render() !!}
         <div class="row" >
             
         </div>

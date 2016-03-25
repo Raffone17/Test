@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends(Auth::user()->isAdmin() ? 'layouts/admin' : 'layouts/app')
 
 @section('content')
     
@@ -56,6 +56,7 @@
 					 	  <input  type="file" name="imageToUpload" id="imageToUpload">
 					<!-- <button disabled type="submit" id="button" class="btn btn-primary col-sm-2 pull-right ">Crea</button> -->
 					  {!! Form::submit('Crea', ['id'=>'submit','class' => 'btn btn-primary col-sm-2 pull-right ']) !!}
+					  <span class="validate">*Titolo neccessario!</span>
 					 <h6 class="pull-right counter">Numero caratteri: 6000</h6>
 					 </div>
 					 
@@ -73,3 +74,4 @@
 		</div>
 		
 @endsection
+

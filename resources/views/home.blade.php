@@ -52,7 +52,7 @@
                                
                                </div>  
                    <hr>             
-                <ul class="list-inline list-unstyled">
+                <ul class="list-inline list-unstyled font-14">
                     
               <!--  $recipe->created_at->format('d-m-Y')  -->
   			<li><span><i class="glyphicon glyphicon-calendar"></i>{{ date('d-m-Y',strtotime($recipe->created_at)) }}</span></li>
